@@ -1,0 +1,6 @@
+firebase deploy --project <PROJECT_ID>
+===
+firebase use <PROJECT_ID>
+firebase deploy
+
+<PROJECT_ID> = actions-on--codelabs
