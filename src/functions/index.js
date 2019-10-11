@@ -6,6 +6,7 @@ const {
     Suggestions,
     Carousel,
     Image,
+    BasicCard,
 } = require('actions-on-google');
 
 // Import the firebase-functions package for deployment.
@@ -45,6 +46,23 @@ const getFaqCarousel = () => new Carousel({
     },
 });
 
+const answerMap = {
+    'agenda': {
+        title: 'Agenda',
+        text: '9:00: Coffee. 10:00: Diverse themas. 12:00: Dinner. 19: Party',
+        image: {
+            url: 'https://images.unsplash.com/photo-1506784242126-2a0b0b89c56a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1348&q=80',
+            accessibilityText: 'Agenda Picture',
+        },
+        display: 'WHITE',
+    },
+};
+
+const getBasicCard = (card) => new BasicCard(card);
+
+const agendaBasicCard = answerMap['agenda'];
+const getAgendaBasicCard = () => getBasicCard(agendaBasicCard);
+
 // Handle the Dialogflow intent named 'Default Welcome Intent'.
 app.intent('Default Welcome Intent', (conv) => {
     conv.ask(`Hi! JAM 2019 is coming. Do you have any questions about it?`);
@@ -58,6 +76,17 @@ app.intent('Default Welcome Intent - no', (conv) => {
 app.intent('Default Welcome Intent - yes', (conv) => {
     conv.ask('What would you like to know?');
     conv.ask(getFaqCarousel());
+});
+
+app.intent('agenda', (conv) => {
+    conv.ask('Here you go.');
+    if (conv.screen) {
+        conv.ask(getAgendaBasicCard());
+    } else {
+        conv.ask(agendaBasicCard.text);
+    }
+    conv.ask('Do you have any other questions?');
+    conv.ask(getYesNoSuggestions());
 });
 
 // Set the DialogflowApp object to handle the HTTPS POST request.
