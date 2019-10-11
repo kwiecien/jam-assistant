@@ -87,7 +87,7 @@ fabric.properties
 *.war
 *.nar
 *.ear
-*.zip
+#*.zip
 *.tar.gz
 *.rar
 
@@ -112,7 +112,7 @@ hs_err_pid*
 *.war
 *.nar
 *.ear
-*.zip
+#*.zip
 *.tar.gz
 *.rar
 
