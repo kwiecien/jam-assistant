@@ -16,4 +16,7 @@ firebase deploy
 - https://developers.google.com/assistant/conversational/overview
 - https://developers.google.com/assistant/conversational/responses
 - https://actions-on-google.github.io/actions-on-google-nodejs/modules/conversation_response.html
+- https://codelabs.developers.google.com/codelabs/actions-1
+- https://codelabs.developers.google.com/codelabs/actions-2
+- https://codelabs.developers.google.com/codelabs/actions-3
 
