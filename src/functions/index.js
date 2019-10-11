@@ -89,5 +89,14 @@ app.intent('agenda', (conv) => {
     conv.ask(getYesNoSuggestions());
 });
 
+app.intent('agenda - no', (conv) => {
+    conv.close('Okay, but as soon as you have any questions, just let me know. Have a nice day!');
+});
+
+app.intent('agenda - yes', (conv) => {
+    conv.ask('What else is bothering you?');
+    conv.ask(getFaqCarousel());
+});
+
 // Set the DialogflowApp object to handle the HTTPS POST request.
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
