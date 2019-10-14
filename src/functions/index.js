@@ -56,46 +56,44 @@ const answerMap = {
         },
         display: 'WHITE',
     },
+    'hotel': {
+        title: 'Hotel',
+        text: 'Hotel ****',
+        image: {
+            url: 'https://images.unsplash.com/photo-1504652517000-ae1068478c59?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
+            accessibilityText: 'Hotel Picture',
+        },
+        display: 'WHITE',
+    },
+    'projectile': {
+        title: 'Projectile',
+        text: 'You can book X hours',
+        image: {
+            url: 'https://images.unsplash.com/photo-1504197832061-98356e3dcdcf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
+            accessibilityText: 'Projectile Picture',
+        },
+        display: 'WHITE',
+    },
 };
 
 const getBasicCard = (card) => new BasicCard(card);
 
-const agendaBasicCard = answerMap['agenda'];
-const getAgendaBasicCard = () => getBasicCard(agendaBasicCard);
-
 // Handle the Dialogflow intent named 'Default Welcome Intent'.
 app.intent('Default Welcome Intent', (conv) => {
-    conv.ask(`Hi! JAM 2019 is coming. Do you have any questions about it?`);
-    conv.ask(getYesNoSuggestions());
-});
-
-app.intent('Default Welcome Intent - no', (conv) => {
-    conv.close('Okay, but as soon as you have any questions, just let me know. Have a nice day!');
-});
-
-app.intent('Default Welcome Intent - yes', (conv) => {
-    conv.ask('What would you like to know?');
+    conv.ask(`Hi! JAM 2019 is coming. What would you like to know?`);
     conv.ask(getFaqCarousel());
 });
 
-app.intent('agenda', (conv) => {
-    conv.ask('Here you go.');
+app.intent('choose topic', (conv, {topic}) => {
+    topic = conv.arguments.get('OPTION') || topic;
     if (conv.screen) {
-        conv.ask(getAgendaBasicCard());
+        conv.ask('Here you go.');
+        conv.ask(getBasicCard(answerMap[topic]));
     } else {
-        conv.ask(agendaBasicCard.text);
+        conv.ask(answerMap[topic].text);
     }
-    conv.ask('Do you have any other questions?');
+    conv.ask('Do you have more questions?');
     conv.ask(getYesNoSuggestions());
-});
-
-app.intent('agenda - no', (conv) => {
-    conv.close('Okay, but as soon as you have any questions, just let me know. Have a nice day!');
-});
-
-app.intent('agenda - yes', (conv) => {
-    conv.ask('What else is bothering you?');
-    conv.ask(getFaqCarousel());
 });
 
 // Set the DialogflowApp object to handle the HTTPS POST request.
