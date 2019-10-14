@@ -96,5 +96,16 @@ app.intent('choose topic', (conv, {topic}) => {
     conv.ask(getYesNoSuggestions());
 });
 
+app.intent('choose topic - no', (conv) => {
+    conv.close('Okay, but as soon as you have any questions, just let me know. Have a nice day!');
+});
+
+app.intent('choose topic - yes', (conv) => {
+    conv.ask('About which topic: agenda, accommodation or booking hours?');
+    if (conv.screen) {
+        return conv.ask(getFaqCarousel());
+    }
+});
+
 // Set the DialogflowApp object to handle the HTTPS POST request.
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
