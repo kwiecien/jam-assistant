@@ -62,7 +62,6 @@ const answerMap = {
             url: 'https://images.unsplash.com/photo-1504652517000-ae1068478c59?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
             accessibilityText: 'Hotel Picture',
         },
-
         display: 'WHITE',
     },
     'projectile': {
@@ -102,26 +101,25 @@ app.intent('Default Welcome Intent', (conv) => {
 
 app.intent('choose topic', (conv, {topic}) => {
     topic = conv.arguments.get('OPTION') || topic;
-    if (conv.screen) {
-        conv.ask('Here you go.');
-        conv.ask(topic === 'agenda' ?
-            getAgendaTable() :
-            getBasicCard(answerMap[topic]));
-    }
     conv.ask(answerMap[topic].text);
+    if (conv.screen) {
+        conv.ask(topic === 'agenda' ?
+                getAgendaTable() :
+                getBasicCard(answerMap[topic]));
+    }
     conv.ask('Do you have more questions?');
     conv.ask(getYesNoSuggestions());
 });
 
 app.intent('choose topic - no', (conv) => {
-    conv.ask('You can always check the website:');
-    conv.ask(new BasicCard({
-        text: 'JAM 2019 - Official Website',
-        buttons: new Button({
-            title: 'go to website',
-            url: 'https://tomato-timer.com/',
-        }),
-    }))
+    conv.ask('You can always check the website:',
+        new BasicCard({
+            text: 'JAM 2019 - Official Website',
+            buttons: new Button({
+                title: 'go to website',
+                url: 'https://tomato-timer.com/',
+            }),
+        }));
     conv.close('As soon as you have any questions, just let me know. Have a nice day!');
 });
 
