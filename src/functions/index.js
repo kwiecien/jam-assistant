@@ -7,6 +7,8 @@ const {
     Carousel,
     Image,
     BasicCard,
+    Table,
+    Button,
 } = require('actions-on-google');
 
 // Import the firebase-functions package for deployment.
@@ -50,33 +52,47 @@ const answerMap = {
     'agenda': {
         title: 'Agenda',
         text: '9:00: Coffee. 10:00: Diverse themas. 12:00: Dinner. 19: Party',
-        image: {
-            url: 'https://images.unsplash.com/photo-1506784242126-2a0b0b89c56a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1348&q=80',
-            accessibilityText: 'Agenda Picture',
-        },
         display: 'WHITE',
     },
     'hotel': {
         title: 'Hotel',
-        text: 'Hotel ****',
+        subtitle: 'Motel One Deutsches Museum',
+        text: '<speak>The hotel is located in the city centre. Breakfast is included. \nIf you want to stay longer, you have to pay <say-as interpret-as="unit">20 euro</say-as>.</speak>',
         image: {
             url: 'https://images.unsplash.com/photo-1504652517000-ae1068478c59?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
             accessibilityText: 'Hotel Picture',
         },
+
         display: 'WHITE',
     },
     'projectile': {
         title: 'Projectile',
-        text: 'You can book X hours',
+        subtitle: 'Intern-2019-GS',
+        text: 'You can book 8 hours',
         image: {
             url: 'https://images.unsplash.com/photo-1504197832061-98356e3dcdcf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
             accessibilityText: 'Projectile Picture',
         },
+        buttons: new Button({
+            title: 'Open Projectile',
+            url: 'https://tomato-timer.com/',
+        }),
         display: 'WHITE',
     },
 };
 
 const getBasicCard = (card) => new BasicCard(card);
+const getAgendaTable = () => new Table({
+    title: 'Agenda',
+    dividers: true,
+    columns: ['When?', 'What?'],
+    rows: [
+        ['9:00', 'Coffee'],
+        ['10:00', 'Diverse themas'],
+        ['12:30', 'Dinner'],
+        ['19:00', 'Party'],
+    ],
+});
 
 // Handle the Dialogflow intent named 'Default Welcome Intent'.
 app.intent('Default Welcome Intent', (conv) => {
@@ -88,22 +104,31 @@ app.intent('choose topic', (conv, {topic}) => {
     topic = conv.arguments.get('OPTION') || topic;
     if (conv.screen) {
         conv.ask('Here you go.');
-        conv.ask(getBasicCard(answerMap[topic]));
-    } else {
-        conv.ask(answerMap[topic].text);
+        conv.ask(topic === 'agenda' ?
+            getAgendaTable() :
+            getBasicCard(answerMap[topic]));
     }
+    conv.ask(answerMap[topic].text);
     conv.ask('Do you have more questions?');
     conv.ask(getYesNoSuggestions());
 });
 
 app.intent('choose topic - no', (conv) => {
-    conv.close('Okay, but as soon as you have any questions, just let me know. Have a nice day!');
+    conv.ask('You can always check the website:');
+    conv.ask(new BasicCard({
+        text: 'JAM 2019 - Official Website',
+        buttons: new Button({
+            title: 'go to website',
+            url: 'https://tomato-timer.com/',
+        }),
+    }))
+    conv.close('As soon as you have any questions, just let me know. Have a nice day!');
 });
 
 app.intent('choose topic - yes', (conv) => {
     conv.ask('About which topic: agenda, accommodation or booking hours?');
     if (conv.screen) {
-        return conv.ask(getFaqCarousel());
+        return conv.ask(new Suggestions(['Agenda', 'Hotel', 'Projectile']));
     }
 });
 
