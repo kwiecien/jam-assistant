@@ -67,7 +67,7 @@ const answerMap = {
     'projectile': {
         title: 'Projectile',
         subtitle: 'Intern-2019-GS',
-        text: 'You can book 8 hours',
+        text: 'You can book 8 hours.',
         image: {
             url: 'https://images.unsplash.com/photo-1504197832061-98356e3dcdcf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
             accessibilityText: 'Projectile Picture',
