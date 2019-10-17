@@ -99,6 +99,7 @@ app.intent('Default Welcome Intent', (conv) => {
     conv.ask(getFaqCarousel());
 });
 
+// marked in the Dialogflow-Integrations as an implicit invocation
 app.intent('choose topic', (conv, {topic}) => {
     topic = conv.arguments.get('OPTION') || topic;
     conv.ask(answerMap[topic].text);
