@@ -99,6 +99,10 @@ app.intent('Default Welcome Intent', (conv) => {
     conv.ask(getFaqCarousel());
 });
 
+app.intent('Unrecognized Deep Link', (conv, {any}) => {
+    conv.ask(`Sorry, I am not sure about ${any}. Do you know the JAM's agenda?`);
+});
+
 // marked in the Dialogflow-Integrations as an implicit invocation
 app.intent('choose topic', (conv, {topic}) => {
     topic = conv.arguments.get('OPTION') || topic;
