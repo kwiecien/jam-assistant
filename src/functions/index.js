@@ -51,13 +51,13 @@ const getFaqCarousel = () => new Carousel({
 const answerMap = {
     'agenda': {
         title: 'Agenda',
-        text: '9:00: Coffee. 10:00: Diverse themas. 12:00: Dinner. 19: Party',
+        text: '9:00: Coffee. 10:00: Diverse themas. 12:30: Dinner. 19: Party',
         display: 'WHITE',
     },
     'hotel': {
         title: 'Hotel',
         subtitle: 'Motel One Deutsches Museum',
-        text: '<speak>The hotel is located in the city centre. Breakfast is included. \nIf you want to stay longer, you have to pay <say-as interpret-as="unit">20 euro</say-as>.</speak>',
+        text: 'The hotel is located in the city centre. Breakfast is included. If you want to stay longer, you have to pay 20€.',
         image: {
             url: 'https://images.unsplash.com/photo-1504652517000-ae1068478c59?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
             accessibilityText: 'Hotel Picture',
