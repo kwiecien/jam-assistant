@@ -130,5 +130,9 @@ app.intent('choose topic - yes', (conv) => {
     }
 });
 
+app.intent('actions_intent_CANCEL', (conv) => {
+    conv.close('Let me know when you want to talk about JAM again!');
+});
+
 // Set the DialogflowApp object to handle the HTTPS POST request.
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
