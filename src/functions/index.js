@@ -51,7 +51,7 @@ const getFaqCarousel = () => new Carousel({
 const answerMap = {
     'agenda': {
         title: 'Agenda',
-        text: '9:00: Coffee. 10:00: Diverse themas. 12:30: Dinner. 19: Party',
+        text: '9:00: Coffee. 10:00: Presentation. 12:30: Dinner. 19: Party',
         display: 'WHITE',
     },
     'hotel': {
@@ -67,7 +67,7 @@ const answerMap = {
     'projectile': {
         title: 'Projectile',
         subtitle: 'Intern-2019-GS',
-        text: 'You can book 8 hours.',
+        text: 'You can book 8 working hours.',
         image: {
             url: 'https://images.unsplash.com/photo-1504197832061-98356e3dcdcf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
             accessibilityText: 'Projectile Picture',
@@ -87,7 +87,7 @@ const getAgendaTable = () => new Table({
     columns: ['When?', 'What?'],
     rows: [
         ['9:00', 'Coffee'],
-        ['10:00', 'Diverse themas'],
+        ['10:00', 'Presentation'],
         ['12:30', 'Dinner'],
         ['19:00', 'Party'],
     ],
@@ -129,7 +129,7 @@ app.intent('choose topic - no', (conv) => {
 });
 
 app.intent('choose topic - yes', (conv) => {
-    conv.ask('About which topic: agenda, accommodation or booking hours?');
+    conv.ask('About which topic: agenda, accommodation or working hours?');
     if (conv.screen) {
         return conv.ask(new Suggestions(['Agenda', 'Hotel', 'Projectile']));
     }
